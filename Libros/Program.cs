@@ -6,12 +6,13 @@ namespace Libros
     {
         enum Subjects { Matematicas, Lenguaje, Quimica };
 
-        static void postBook (ArrayList Books) 
+        static void postBook (List<Object> Books) 
         {
 
             string Name;
             Subjects Subject;
             int Pages;
+
             string flag;
             string Option;
 
@@ -42,7 +43,7 @@ namespace Libros
 
             } while (Pages <= 49);
 
-            ArrayList Book = new ArrayList();
+            List<object> Book = new List<Object>();
 
             Book.Add(Name);
             Book.Add(Subject);
@@ -52,12 +53,43 @@ namespace Libros
 
         }
 
-        static void Output(ArrayList arrayList)
+        static void Output(List<Object> Books)
         {
-            foreach (ArrayList Books in arrayList)
+            foreach (List<Object> Book in Books)
             {
+                
+                foreach (object item in Book)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
 
-                foreach (object item in Books)
+        //var res = Books.ToArray().Where(book =>book.Equals(Subjects.Matematicas));
+
+        //public static void Maths(List<Object> lista)
+        //{
+
+        //    foreach (List<Object> Books in lista)
+        //    {
+        //        var res = Books.ToArray().Where(book => book.Equals(Subjects.Matematicas));
+
+        //        foreach (object item in res)
+        //        {
+        //            Console.WriteLine(item.ToString());
+        //        }
+        //    }
+        //}
+
+        public static void Maths(List<object> lista)
+        {
+            foreach (List<object> Books in lista)
+            {
+                var res = Books.ToArray()
+                               .Where(book => book.GetType().GetProperty("Subject")?.GetValue(book) is Subjects s && s.HasFlag(Subjects.Matematicas))
+                               .Select(book => book.GetType().GetProperty("Pages")?.GetValue(book));
+
+                foreach (object item in res)
                 {
                     Console.WriteLine(item);
                 }
@@ -82,17 +114,18 @@ namespace Libros
             } while (Cant <= 0);
 
 
-            Console.WriteLine("La cantidad de libros es: {0}", Cant);
+            Console.WriteLine("La cantidad de libros es: {0}\n", Cant);
 
-            ArrayList Books = new ArrayList();
+            List<object> Book = new List<Object>();
 
             for(int i = 0;i < Cant; i++) {
 
-                postBook(Books);
+                postBook(Book);
 
             }
             
-            Output(Books);
+            //Output(Book);
+            Maths(Book);
 
 
         }
