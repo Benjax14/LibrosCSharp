@@ -65,36 +65,35 @@ namespace Libros
             }
         }
 
-        //var res = Books.ToArray().Where(book =>book.Equals(Subjects.Matematicas));
 
-        //public static void Maths(List<Object> lista)
-        //{
-
-        //    foreach (List<Object> Books in lista)
-        //    {
-        //        var res = Books.ToArray().Where(book => book.Equals(Subjects.Matematicas));
-
-        //        foreach (object item in res)
-        //        {
-        //            Console.WriteLine(item.ToString());
-        //        }
-        //    }
-        //}
-
-        public static void Maths(List<object> lista)
+        public static void Maths(List<Object> lista)
         {
-            foreach (List<object> Books in lista)
+
+            foreach (List<Object> Books in lista)
             {
-                var res = Books.ToArray()
-                               .Where(book => book.GetType().GetProperty("Subject")?.GetValue(book) is Subjects s && s.HasFlag(Subjects.Matematicas))
-                               .Select(book => book.GetType().GetProperty("Pages")?.GetValue(book));
+                var res = Books.ToArray().Where(book => book.Equals(Subjects.Matematicas));
 
                 foreach (object item in res)
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine(item.ToString());
                 }
             }
         }
+
+        //public static void Maths(List<object> lista)
+        //{
+        //    foreach (List<object> Books in lista)
+        //    {
+        //        var res = Books.ToArray()
+        //                       .Where(book => book.GetType().GetProperty("Subject")?.GetValue(book) is Subjects s && s.HasFlag(Subjects.Matematicas))
+        //                       .Select(book => book.GetType().GetProperty("Pages")?.GetValue(book));
+
+        //        foreach (object item in res)
+        //        {
+        //            Console.WriteLine(item);
+        //        }
+        //    }
+        //}
 
         static void Main(string[] args)
         {
