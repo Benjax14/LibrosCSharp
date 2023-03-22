@@ -1,11 +1,10 @@
-﻿using System.Collections;
-
-namespace Libros
+﻿namespace Libros
 {
     internal class Program
     {
 
-        public class Book{
+        public class Book
+        {
             public string Name;
             public Subjects Subject;
             public int Pages;
@@ -62,7 +61,7 @@ namespace Libros
 
         public static List<Book> CreateBooks()
         {
-            List<Book> books = new List<Book>();
+            var books = new List<Book>();
 
             books.Add(new Book { Name = "Libro1", Subject = Subjects.Matematicas, Pages = 200 });
             books.Add(new Book { Name = "Libro2", Subject = Subjects.Quimica, Pages = 80 });
@@ -86,19 +85,20 @@ namespace Libros
         }
 
 
-        public static void Maths(List<Book> Books)
+        public static void GetMaths(List<Book> books)
         {
             Console.WriteLine("Los libros de matematicas");
-            foreach (Book book in Books.Where(book => book.Subject == Subjects.Matematicas))
+            foreach (Book book in books.Where(book => book.Subject == Subjects.Matematicas))
             {
                 Console.WriteLine($"Nombre: {book.Name}");
             }
         }
 
-        public static void Chemistry(List<Book> Books)
+        public static void GetChemistry(List<Book> books)
         {
             Console.WriteLine("Los libros de quimica que tiene mas 100 paginas");
-            foreach (Book book in Books.Where(book => book.Subject == Subjects.Quimica && book.Pages > 100)){
+            foreach (Book book in books.Where(book => book.Subject == Subjects.Quimica && book.Pages > 100))
+            {
 
                 Console.WriteLine($"Nombre: {book.Name}, Paginas: {book.Pages}");
 
@@ -125,14 +125,14 @@ namespace Libros
 
             //Console.WriteLine("La cantidad de libros es: {0}\n", Cant);
 
-            var Book = new List<Book>();
+            var book = new List<Book>();
 
-            Book = CreateBooks();
+            book = CreateBooks();
 
             //Output(Book);
-            Maths(Book);
+            GetMaths(book);
             Console.WriteLine("\n");
-            Chemistry(Book);
+            GetChemistry(book);
 
 
         }
