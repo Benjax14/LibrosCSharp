@@ -1,7 +1,11 @@
-﻿namespace Libros
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Libros
 {
     internal class Program
     {
+        static List<Book> books;
 
         public class Book
         {
@@ -16,7 +20,6 @@
 
         public static List<Book> CreateBooks()
         {
-            var books = new List<Book>();
 
             books.Add(new Book { Name = "Libro1", Subject = Subjects.Maths, Pages = 200, Date = new DateTime(2022, 07, 15), Available = true });
             books.Add(new Book { Name = "Libro2", Subject = Subjects.Chemistry, Pages = 80, Date = new DateTime(2012, 05, 15), Available = false });
@@ -61,6 +64,21 @@
             }
         }
 
+        public static void GetMayorPages(List<Book> books)
+        {
+            Console.WriteLine("El libro que tiene la mayor cantidad de páginas: ");
+
+            Book match;
+
+            match = books.MaxBy(l => l.Pages);
+            if(match == null)
+            {
+                Console.WriteLine("dx");
+            }
+            else { Show(match); }
+           
+
+        }
         public static void GetNumberPages(List<Book> books)
         {
             var count = 0;
@@ -75,29 +93,13 @@
         static void Main(string[] args)
         {
 
-
-            //string val;
-            //int Cant;
-
-
-            //do
-            //{
-
-            //    Console.WriteLine("Ingrese la cantidad de libros");
-            //    val = Console.ReadLine();
-            //    Cant = Convert.ToInt32(val);
-
-            //} while (Cant <= 0);
-
-
-            //Console.WriteLine("La cantidad de libros es: {0}\n", Cant);
-
-            var books = new List<Book>();
+            books = new List<Book>();
 
             books = CreateBooks();
 
+            GetMayorPages(books);
             //Show(books);
-            GetNumberPages(books);
+            //GetNumberPages(books);
             //GetMaths(books);
             //Console.WriteLine("\n");
             //GetChemistry(books);
