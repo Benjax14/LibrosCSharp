@@ -9,11 +9,6 @@ namespace Libros
 {
     internal class Program
     {
-        //lista global
-        List<Book> Books = new List<Book>();
-
-        // Enum type para las asignaturas/especialidad
-        public enum Subjects { Maths, Literature, Chemistry, Physics };
 
         //populate
         public static List<Book> CreateBooks()
@@ -21,16 +16,16 @@ namespace Libros
 
             List<Book> books = new List<Book>();
 
-            books.Add(new Book ("Libro1", Subjects.Maths, 200, new DateTime(2022, 07, 15), true ));
-            books.Add(new Book ("Libro2", Subjects.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
-            books.Add(new Book ("Libro3", Subjects.Literature, 300, new DateTime(2022, 03, 25), true));
-            books.Add(new Book ("Libro4", Subjects.Literature, 250, new DateTime(2022, 01, 05), true));
-            books.Add(new Book ("Libro5", Subjects.Maths, 180, new DateTime(2021, 03, 11), true));
-            books.Add(new Book ("Libro6", Subjects.Maths, 220, new DateTime(2020, 02, 20), false));
-            books.Add(new Book ("Libro7", Subjects.Chemistry, 170, new DateTime(2019, 09, 25), true));
-            books.Add(new Book ("Libro8", Subjects.Literature, 280, new DateTime(2023, 01, 29), false));
-            books.Add(new Book ("Libro9", Subjects.Literature, 200, new DateTime(2018, 02, 14), false));
-            books.Add(new Book ("Libro10", Subjects.Maths, 190, new DateTime(2014, 05, 25), true));
+            books.Add(new Book ("Libro1", Subjects.Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
+            books.Add(new Book ("Libro2", Subjects.Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
+            books.Add(new Book ("Libro3", Subjects.Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
+            books.Add(new Book ("Libro4", Subjects.Subject.Literature, 250, new DateTime(2022, 01, 05), true));
+            books.Add(new Book ("Libro5", Subjects.Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
+            books.Add(new Book ("Libro6", Subjects.Subject.Literature, 220, new DateTime(2020, 02, 20), false));
+            books.Add(new Book ("Libro7", Subjects.Subject.Maths, 170, new DateTime(2019, 09, 25), true));
+            books.Add(new Book ("Libro8", Subjects.Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
+            books.Add(new Book ("Libro9", Subjects.Subject.Maths, 200, new DateTime(2018, 02, 14), false));
+            books.Add(new Book ("Libro10", Subjects.Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
 
             return books;
         }
@@ -39,7 +34,7 @@ namespace Libros
         public static void GetMaths(List<Book> books)
         {
             Console.WriteLine("Maths books: ");
-            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Maths))
+            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Subject.Maths))
             {
                 book.Show();
             }
@@ -49,7 +44,7 @@ namespace Libros
         public static void GetChemistry(List<Book> books)
         {
             Console.WriteLine("Chemistry books that have more than 100 pages: ");
-            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Chemistry && book.GetPages > 100))
+            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Subject.Chemistry && book.GetPages > 100))
             {
 
                 book.Show();
@@ -96,7 +91,7 @@ namespace Libros
             var subjectTypes = Enum.GetValues(typeof(Subjects));
             Console.WriteLine("Number of books by specialty: ");
 
-            foreach (Subjects subject in subjectTypes)
+            foreach (Subjects.Subject subject in subjectTypes)
             {
                 int count = books.Count(b => b.GetSubjects == subject);
                 Console.WriteLine($"{subject}\t{count}");

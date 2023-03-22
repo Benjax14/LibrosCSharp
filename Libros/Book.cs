@@ -11,33 +11,34 @@ namespace Libros
     {
         public class Book
         {
-            private string Name;
-            private Subjects Subject;
-            private int Pages;
-            private DateTime Date;
-            private bool Available;
+            private string name;
+            private Subjects.Subject subject;
+            private int pages;
+            private DateTime date;
+            private bool available;
 
             // Constructor
-            public Book(string name, Subjects subject, int pages, DateTime date, bool available)
+            public Book(string name, Subjects.Subject subject, int pages, DateTime date, bool available)
             {
-                this.Name = name;
-                this.Subject = subject;
-                this.Pages = pages;
-                this.Date = date;
-                this.Available = available;
+                this.name = name;
+                this.subject = subject;
+                this.pages = pages;
+                this.date = date;
+                this.available = available;
+                GetSubjects = subject;
             }
 
 
             //Imprimir generica
             public void Show()
             {
-                Console.WriteLine($"{Name}\t{Subject}\t{Pages}\t{Date.ToString("yyyy-MM-dd")}\t{Available}");
+                Console.WriteLine($"{name}\t{subject}\t{pages}\t{date.ToString("yyyy-MM-dd")}\t{available}");
             }
 
-            public Subjects GetSubjects { get; }
-            public String Getname { get; }
-            public int GetPages { get; }
-            public DateTime GetDate { get; }
+            public Subjects.Subject GetSubjects { get; }
+            public string GetName { get;}
+            public int GetPages { get { return pages; } }
+            public DateTime GetDate { get { return date; } }
             public bool GetAvailable { get; } 
 
         }
