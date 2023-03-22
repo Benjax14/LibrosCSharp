@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
 using static Libros.Program;
@@ -8,7 +10,7 @@ namespace Libros
     internal class Program
     {
         //lista global
-        static List<Book> books;
+        static List<Book> Books;
 
         public class Book
         {
@@ -34,16 +36,6 @@ namespace Libros
                 Console.WriteLine($"{Name}\t{Subject}\t{Pages}\t{Date.ToString("yyyy-MM-dd")}\t{Available}");
             }
 
-            public void ShowSubject(Subjects Subject,int count)
-            {
-                Console.WriteLine($"{Subject}\t{count}");
-            }
-
-            public void ShowPages(int count)
-            {
-                Console.WriteLine("Total pages:");
-                Console.WriteLine($"{count}");
-            }
         }
 
         // Enum type para las asignaturas/especialidad
@@ -53,25 +45,25 @@ namespace Libros
         public static List<Book> CreateBooks()
         {
 
-            books.Add(new Book ( "Libro1", Subjects.Maths, 200, new DateTime(2022, 07, 15), true ));
-            books.Add(new Book ("Libro2", Subjects.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
-            books.Add(new Book ("Libro3", Subjects.Literature, 300, new DateTime(2022, 03, 25), true));
-            books.Add(new Book ("Libro4", Subjects.Literature, 250, new DateTime(2022, 01, 05), true));
-            books.Add(new Book ("Libro5", Subjects.Maths, 180, new DateTime(2021, 03, 11), true));
-            books.Add(new Book ("Libro6", Subjects.Maths, 220, new DateTime(2020, 02, 20), false));
-            books.Add(new Book ("Libro7", Subjects.Chemistry, 170, new DateTime(2019, 09, 25), true));
-            books.Add(new Book ("Libro8", Subjects.Literature, 280, new DateTime(2023, 01, 29), false));
-            books.Add(new Book ("Libro9", Subjects.Literature, 200, new DateTime(2018, 02, 14), false));
-            books.Add(new Book ("Libro10", Subjects.Maths, 190, new DateTime(2014, 05, 25), true));
+            Books.Add(new Book ( "Libro1", Subjects.Maths, 200, new DateTime(2022, 07, 15), true ));
+            Books.Add(new Book ("Libro2", Subjects.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
+            Books.Add(new Book ("Libro3", Subjects.Literature, 300, new DateTime(2022, 03, 25), true));
+            Books.Add(new Book ("Libro4", Subjects.Literature, 250, new DateTime(2022, 01, 05), true));
+            Books.Add(new Book ("Libro5", Subjects.Maths, 180, new DateTime(2021, 03, 11), true));
+            Books.Add(new Book ("Libro6", Subjects.Maths, 220, new DateTime(2020, 02, 20), false));
+            Books.Add(new Book ("Libro7", Subjects.Chemistry, 170, new DateTime(2019, 09, 25), true));
+            Books.Add(new Book ("Libro8", Subjects.Literature, 280, new DateTime(2023, 01, 29), false));
+            Books.Add(new Book ("Libro9", Subjects.Literature, 200, new DateTime(2018, 02, 14), false));
+            Books.Add(new Book ("Libro10", Subjects.Maths, 190, new DateTime(2014, 05, 25), true));
 
-            return books;
+            return Books;
         }
 
         //Muestra los libros de matematicas
         public static void GetMaths(List<Book> books)
         {
             Console.WriteLine("Maths books: ");
-            foreach (Book book in books.Where(book => book.Subject == Subjects.Maths))
+            foreach (Book book in Books.Where(book => book.Subject == Subjects.Maths))
             {
                 book.Show();
             }
@@ -81,7 +73,7 @@ namespace Libros
         public static void GetChemistry(List<Book> books)
         {
             Console.WriteLine("Chemistry books that have more than 100 pages: ");
-            foreach (Book book in books.Where(book => book.Subject == Subjects.Chemistry && book.Pages > 100))
+            foreach (Book book in Books.Where(book => book.Subject == Subjects.Chemistry && book.Pages > 100))
             {
 
                 book.Show();
@@ -90,12 +82,12 @@ namespace Libros
         }
 
         //Muestra el libro que tenga la mayor cantidad de páginas
-        public static Book GetMayorPages()
+        public static Book GetMaxPagesBook()
         {
 
             Book match = null; 
 
-            foreach (Book book in books)
+            foreach (Book book in Books)
             {
                 if(match == null)
                 {
@@ -116,7 +108,7 @@ namespace Libros
         {
             Book match = null;
 
-            foreach(Book book in books)
+            foreach(Book book in Books)
             {
                 if(match == null) { 
                     match= book;
@@ -132,13 +124,17 @@ namespace Libros
         public static void GetNumberPages(List<Book> books)
         {
             var count = 0;
-            foreach(Book book in books)
-            {
-                count = count + book.Pages;
-            }
 
-            Book total = books[0];
-            total.ShowPages(count);
+            count = books.Sum(book => book.Pages);
+
+            //foreach(Book book in Books)
+            //{
+            //    count += book.Pages;
+
+            //}
+
+            Console.WriteLine("Total pages:");
+            Console.WriteLine($"{count}");
 
         }
 
@@ -146,7 +142,7 @@ namespace Libros
 
         public static void OrderBooksPages(List<Book> books)
         {
-            List<Book> list = books.OrderByDescending(book => book.Pages).ToList();
+            var list = Books.OrderByDescending(book => book.Pages);
 
             Console.WriteLine("Order by pages: ");
 
@@ -162,23 +158,34 @@ namespace Libros
             var subjectTypes = Enum.GetValues(typeof(Subjects));
             Console.WriteLine("Number of books by specialty: ");
 
-            Book book = books[0];
-
             foreach (Subjects subject in subjectTypes)
             {
                 int count = books.Count(b => b.Subject == subject);
-                book.ShowSubject(subject,count);
+                Console.WriteLine($"{subject}\t{count}");
             }
 
+
+        }
+
+        public static void CountBooksBySpecialty2(List<Book> books)
+        {
+
+            var list = books.GroupBy(book => book.Subject);
+            Console.WriteLine("Number of books by specialty: ");
+
+            foreach (var group in list)
+            {
+                Console.WriteLine($"{group.Key}: {group.Count()}");
+            }
 
         }
 
         static void Main(string[] args)
         {
 
-            books = new List<Book>();
+            Books = new List<Book>();
 
-            books = CreateBooks();
+            Books = CreateBooks();
 
             Console.WriteLine("------WELCOME-----");
             Console.WriteLine("Choose an option: \n" +
@@ -193,6 +200,7 @@ namespace Libros
 
             int option = Convert.ToInt32(Console.ReadLine());
 
+
             Console.Clear();
 
             switch (option)
@@ -200,18 +208,18 @@ namespace Libros
 
                 case 1:
 
-                    GetMaths(books);
+                    GetMaths(Books);
                     break;
 
                 case 2:
 
-                    GetChemistry(books);
+                    GetChemistry(Books);
                     break;
 
                 case 3:
 
                     Console.WriteLine("The book with the most pages: ");
-                    Book topBook = GetMayorPages();
+                    Book topBook = GetMaxPagesBook();
                     topBook.Show();
                     break;
 
@@ -224,17 +232,17 @@ namespace Libros
 
                 case 5:
 
-                    GetNumberPages(books);
+                    GetNumberPages(Books);
                     break;
 
                 case 6:
 
-                    OrderBooksPages(books);
+                    OrderBooksPages(Books);
                     break;
 
                 case 7:
-
-                    CountBooksBySpecialty(books);
+                    CountBooksBySpecialty2(Books);
+                    //CountBooksBySpecialty(Books);
                     break;
 
                 case 0:
@@ -247,10 +255,7 @@ namespace Libros
             //    Console.WriteLine($"{book.Name}\t{book.Subject}\t{book.Pages}\t{book.Date.ToString("yyyy-MM-dd")}\t{book.Available}");
 
             //}
-
-            Thread.Sleep(10000);
-
-            Environment.Exit(0);
+            Console.ReadKey();
         }
 
 
