@@ -33,6 +33,17 @@ namespace Libros
             {
                 Console.WriteLine($"{Name}\t{Subject}\t{Pages}\t{Date.ToString("yyyy-MM-dd")}\t{Available}");
             }
+
+            public void ShowSubject(Subjects Subject,int count)
+            {
+                Console.WriteLine($"{Subject}\t{count}");
+            }
+
+            public void ShowPages(int count)
+            {
+                Console.WriteLine("Total pages:");
+                Console.WriteLine($"{count}");
+            }
         }
 
         // Enum type para las asignaturas/especialidad
@@ -62,7 +73,7 @@ namespace Libros
             Console.WriteLine("Maths books: ");
             foreach (Book book in books.Where(book => book.Subject == Subjects.Maths))
             {
-                Console.WriteLine($"{book.Name}");
+                book.Show();
             }
         }
 
@@ -73,7 +84,7 @@ namespace Libros
             foreach (Book book in books.Where(book => book.Subject == Subjects.Chemistry && book.Pages > 100))
             {
 
-                Console.WriteLine($"{book.Name}\t{book.Pages}");
+                book.Show();
 
             }
         }
@@ -100,7 +111,7 @@ namespace Libros
 
         }
 
-        //Muestra el libro más antiguo (con la fecha de publicación más antigua
+        //Muestra el libro más antiguo con la fecha de publicación más antigua
         public static Book GetOlderBook()
         {
             Book match = null;
@@ -114,7 +125,6 @@ namespace Libros
                     match = book;
                 }
             }
-
             return match;
         }
 
@@ -127,7 +137,9 @@ namespace Libros
                 count = count + book.Pages;
             }
 
-            Console.WriteLine(count);
+            Book total = books[0];
+            total.ShowPages(count);
+
         }
 
         //Muestra todos los libros ordenados desde el que tiene más páginas al que tiene menos páginas
@@ -135,6 +147,8 @@ namespace Libros
         public static void OrderBooksPages(List<Book> books)
         {
             List<Book> list = books.OrderByDescending(book => book.Pages).ToList();
+
+            Console.WriteLine("Order by pages: ");
 
             foreach (Book book in list)
             {
@@ -148,10 +162,12 @@ namespace Libros
             var subjectTypes = Enum.GetValues(typeof(Subjects));
             Console.WriteLine("Number of books by specialty: ");
 
+            Book book = books[0];
+
             foreach (Subjects subject in subjectTypes)
             {
                 int count = books.Count(b => b.Subject == subject);
-                Console.WriteLine($"{subject}: {count}");
+                book.ShowSubject(subject,count);
             }
 
 
@@ -164,12 +180,67 @@ namespace Libros
 
             books = CreateBooks();
 
-            Book topBook = GetMayorPages();
-            Book olderBook= GetOlderBook();
+            Console.WriteLine("------WELCOME-----");
+            Console.WriteLine("Choose an option: \n" +
+                "1.- All math books\n" +
+                "2.- All Chemistry books that have more than 100 pages \n" +
+                "3.- The book with the most pages \n" +
+                "4.- The oldest book with the oldest publication date \n" +
+                "5.- The total number of pages among all the books \n" +
+                "6.- Shows all the books ordered from the one with the most pages to the one with the fewest pages \n" +
+                "7.- Shows how many books there are for each specialty \n" +
+                "0.- Exit");
 
-            //OrderBooksPages(books);
+            int option = Convert.ToInt32(Console.ReadLine());
 
-            //CountBooksBySpecialty(books);
+            Console.Clear();
+
+            switch (option)
+            {
+
+                case 1:
+
+                    GetMaths(books);
+                    break;
+
+                case 2:
+
+                    GetChemistry(books);
+                    break;
+
+                case 3:
+
+                    Console.WriteLine("The book with the most pages: ");
+                    Book topBook = GetMayorPages();
+                    topBook.Show();
+                    break;
+
+                case 4:
+
+                    Console.WriteLine("The oldest book: ");
+                    Book olderBook = GetOlderBook();
+                    olderBook.Show();
+                    break;
+
+                case 5:
+
+                    GetNumberPages(books);
+                    break;
+
+                case 6:
+
+                    OrderBooksPages(books);
+                    break;
+
+                case 7:
+
+                    CountBooksBySpecialty(books);
+                    break;
+
+                case 0:
+                    break;
+            }
+
 
             //foreach (Book book in books)
             //{
@@ -177,23 +248,9 @@ namespace Libros
 
             //}
 
+            Thread.Sleep(10000);
 
-            //Console.WriteLine("The oldest book: ");
-            //olderBook.Show();
-
-
-            //Console.WriteLine("The book with the most pages: ");
-            //topBook.Show();
-
-            //GetMayorPages(books);
-
-            //GetNumberPages(books);
-
-            //GetMaths(books);
-
-            //GetChemistry(books);
-
-
+            Environment.Exit(0);
         }
 
 
