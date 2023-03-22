@@ -16,16 +16,16 @@ namespace Libros
 
             List<Book> books = new List<Book>();
 
-            books.Add(new Book ("Libro1", Subjects.Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
-            books.Add(new Book ("Libro2", Subjects.Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
-            books.Add(new Book ("Libro3", Subjects.Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
-            books.Add(new Book ("Libro4", Subjects.Subject.Literature, 250, new DateTime(2022, 01, 05), true));
-            books.Add(new Book ("Libro5", Subjects.Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
-            books.Add(new Book ("Libro6", Subjects.Subject.Literature, 220, new DateTime(2020, 02, 20), false));
-            books.Add(new Book ("Libro7", Subjects.Subject.Maths, 170, new DateTime(2019, 09, 25), true));
-            books.Add(new Book ("Libro8", Subjects.Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
-            books.Add(new Book ("Libro9", Subjects.Subject.Maths, 200, new DateTime(2018, 02, 14), false));
-            books.Add(new Book ("Libro10", Subjects.Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
+            books.Add(new Book ("Derivadas", Subjects.Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
+            books.Add(new Book ("Quimica y Farmacia 1", Subjects.Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
+            books.Add(new Book ("Tablas quimicas", Subjects.Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
+            books.Add(new Book ("Don Quijote", Subjects.Subject.Literature, 250, new DateTime(2022, 01, 05), true));
+            books.Add(new Book ("Fundamentos Quimica", Subjects.Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
+            books.Add(new Book ("Subterra", Subjects.Subject.Literature, 220, new DateTime(2020, 02, 20), false));
+            books.Add(new Book ("Baldor", Subjects.Subject.Maths, 170, new DateTime(2019, 09, 25), true));
+            books.Add(new Book ("La quimica del amor", Subjects.Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
+            books.Add(new Book ("Matematicas for dummies", Subjects.Subject.Maths, 200, new DateTime(2018, 02, 14), false));
+            books.Add(new Book ("Nomenclatura de las sustancias químicas", Subjects.Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
 
             return books;
         }
@@ -132,6 +132,35 @@ namespace Libros
             return query;
         }
 
+        public static void GetActualMonthBooks(List<Book> books)
+        {
+
+            var localDate = DateTime.Now;
+
+            var list = books.Where(book => book.GetDate.Month == localDate.Month);
+
+            Console.WriteLine("Order by actual month: ");
+
+            foreach (Book book in list)
+            {
+                book.Show();
+            }
+        }
+
+        public static List<string> GetSortedBookNames(List<Book> books)
+        {
+            List<string> bookNames = new List<string>();
+
+            foreach (Book book in books)
+            {
+                bookNames.Add(book.GetName);
+            }
+
+            bookNames.Sort();
+
+            return bookNames;
+        }
+
         static void Main(string[] args)
         {
 
@@ -148,6 +177,8 @@ namespace Libros
                 "5.- The total number of pages among all the books \n" +
                 "6.- Shows all the books ordered from the one with the most pages to the one with the fewest pages \n" +
                 "7.- Shows how many books there are for each specialty \n" +
+                "8.- Shows list of names of books published this month" +
+                "9.- List of names of all books, ordered from A to Z"+
                 "0.- Exit");
 
             int option = Convert.ToInt32(Console.ReadLine());
@@ -196,7 +227,17 @@ namespace Libros
                     CountBooksBySpecialty2(books);
                     //CountBooksBySpecialty(Books);
                     break;
-
+                case 8:
+                    GetActualMonthBooks(books);
+                    break;
+                case 9:
+                    var sortedBooks = GetSortedBookNames(books);
+                    Console.WriteLine("Sorted books:");
+                    foreach (string bookName in sortedBooks)
+                    {
+                        Console.WriteLine(bookName);
+                    }
+                    break;
                 case 0:
                     break;
             }

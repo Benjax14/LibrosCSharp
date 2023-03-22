@@ -36,7 +36,7 @@ namespace Libros
             }
 
             public Subjects.Subject GetSubjects { get; }
-            public string GetName { get;}
+            public string GetName { get { return name; } }
             public int GetPages { get { return pages; } }
             public DateTime GetDate { get { return date; } }
             public bool GetAvailable { get; } 
