@@ -8,79 +8,35 @@
             public string Name;
             public Subjects Subject;
             public int Pages;
+            public DateTime Date;
+            public bool Available;
 
         }
         public enum Subjects { Maths, Literature, Chemistry };
-
-        //static void postBook (List<Object> Books) 
-        //{
-
-        //    string Name;
-        //    Subjects Subject;
-        //    int Pages;
-
-        //    string flag;
-        //    string Option;
-
-        //    Console.WriteLine("Ingrese el nombre del libro: ");
-        //    Name = Console.ReadLine();
-
-        //    Console.WriteLine("Seleccione la especialidad: \n1.- Matematicas\n2.- Lenguaje\n3.- Quimica");
-        //    Option= Console.ReadLine();
-
-        //    if (Option == "1")
-        //    {
-        //        Subject = Subjects.Matematicas;
-        //    }else if (Option == "2")
-        //    {
-        //        Subject = Subjects.Lenguaje;
-        //    }
-        //    else
-        //    {
-        //        Subject= Subjects.Quimica;
-        //    }
-
-        //    Console.WriteLine("Ingrese la cantidad de páginas: ");
-
-        //    do
-        //    {
-        //        flag = Console.ReadLine();
-        //        Pages = Convert.ToInt32(flag);
-
-        //    } while (Pages <= 49);
-
-        //    List<object> Book = new List<Object>();
-
-        //    Book.Add(Name);
-        //    Book.Add(Subject);
-        //    Book.Add(Pages);
-
-        //    Books.Add(Book);
-
-        //}
 
         public static List<Book> CreateBooks()
         {
             var books = new List<Book>();
 
-            books.Add(new Book { Name = "Libro1", Subject = Subjects.Matematicas, Pages = 200 });
-            books.Add(new Book { Name = "Libro2", Subject = Subjects.Quimica, Pages = 80 });
-            books.Add(new Book { Name = "Libro3", Subject = Subjects.Lenguaje, Pages = 300 });
-            books.Add(new Book { Name = "Libro4", Subject = Subjects.Lenguaje, Pages = 250 });
-            books.Add(new Book { Name = "Libro5", Subject = Subjects.Matematicas, Pages = 180 });
-            books.Add(new Book { Name = "Libro6", Subject = Subjects.Matematicas, Pages = 220 });
-            books.Add(new Book { Name = "Libro7", Subject = Subjects.Quimica, Pages = 170 });
-            books.Add(new Book { Name = "Libro8", Subject = Subjects.Lenguaje, Pages = 280 });
-            books.Add(new Book { Name = "Libro9", Subject = Subjects.Lenguaje, Pages = 200 });
-            books.Add(new Book { Name = "Libro10", Subject = Subjects.Matematicas, Pages = 190 });
+            books.Add(new Book { Name = "Libro1", Subject = Subjects.Maths, Pages = 200, Date = new DateTime(2022, 07, 15), Available = true });
+            books.Add(new Book { Name = "Libro2", Subject = Subjects.Chemistry, Pages = 80, Date = new DateTime(2012, 05, 15), Available = false });
+            books.Add(new Book { Name = "Libro3", Subject = Subjects.Literature, Pages = 300 ,Date = new DateTime(2022, 03, 25), Available = true });
+            books.Add(new Book {Name = "Libro4", Subject = Subjects.Literature, Pages = 250, Date = new DateTime(2022, 01, 05), Available = true });
+            books.Add(new Book {Name = "Libro5", Subject = Subjects.Maths, Pages = 180, Date = new DateTime(2021, 03, 11), Available = true });
+            books.Add(new Book {Name = "Libro6", Subject = Subjects.Maths, Pages = 220, Date = new DateTime(2020, 02, 20), Available = false });
+            books.Add(new Book {Name = "Libro7", Subject = Subjects.Chemistry, Pages = 170, Date = new DateTime(2019, 09, 25), Available = true });
+            books.Add(new Book {Name = "Libro8", Subject = Subjects.Literature, Pages = 280, Date = new DateTime(2023, 01, 29), Available = false });
+            books.Add(new Book {Name = "Libro9", Subject = Subjects.Literature, Pages = 200, Date = new DateTime(2018, 02, 14), Available = false });
+            books.Add(new Book {Name = "Libro10", Subject = Subjects.Maths, Pages = 190, Date = new DateTime(2014, 05, 25), Available = true });
 
             return books;
         }
-        static void Output(List<Book> Books)
+        static void Show(List<Book> Books)
         {
+           
             foreach (Book book in Books)
             {
-                Console.WriteLine($"Nombre: {book.Name}, Especialidad: {book.Subject}, Paginas: {book.Pages}");
+                Console.WriteLine($"{book.Name}\t{book.Subject}\t{book.Pages}\t{book.Date.ToString("yyyy-MM-dd")}\t{book.Available}");
             }
         }
 
@@ -88,21 +44,32 @@
         public static void GetMaths(List<Book> books)
         {
             Console.WriteLine("Los libros de matematicas");
-            foreach (Book book in books.Where(book => book.Subject == Subjects.Matematicas))
+            foreach (Book book in books.Where(book => book.Subject == Subjects.Maths))
             {
-                Console.WriteLine($"Nombre: {book.Name}");
+                Console.WriteLine($"{book.Name}");
             }
         }
 
         public static void GetChemistry(List<Book> books)
         {
             Console.WriteLine("Los libros de quimica que tiene mas 100 paginas");
-            foreach (Book book in books.Where(book => book.Subject == Subjects.Quimica && book.Pages > 100))
+            foreach (Book book in books.Where(book => book.Subject == Subjects.Chemistry && book.Pages > 100))
             {
 
-                Console.WriteLine($"Nombre: {book.Name}, Paginas: {book.Pages}");
+                Console.WriteLine($"{book.Name}\t{book.Pages}");
 
             }
+        }
+
+        public static void GetNumberPages(List<Book> books)
+        {
+            var count = 0;
+            foreach(Book book in books)
+            {
+                count = count + book.Pages;
+            }
+
+            Console.WriteLine(count);
         }
 
         static void Main(string[] args)
@@ -125,14 +92,15 @@
 
             //Console.WriteLine("La cantidad de libros es: {0}\n", Cant);
 
-            var book = new List<Book>();
+            var books = new List<Book>();
 
-            book = CreateBooks();
+            books = CreateBooks();
 
-            //Output(Book);
-            GetMaths(book);
-            Console.WriteLine("\n");
-            GetChemistry(book);
+            //Show(books);
+            GetNumberPages(books);
+            //GetMaths(books);
+            //Console.WriteLine("\n");
+            //GetChemistry(books);
 
 
         }
