@@ -10,7 +10,7 @@
             public int Pages;
 
         }
-        public enum Subjects { Matematicas, Lenguaje, Quimica };
+        public enum Subjects { Maths, Literature, Chemistry };
 
         //static void postBook (List<Object> Books) 
         //{
