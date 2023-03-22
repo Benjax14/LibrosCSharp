@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
-using static Libros.Books;
+using static Libros.Book;
 
 namespace Libros
 {
@@ -16,16 +16,16 @@ namespace Libros
 
             List<Book> books = new List<Book>();
 
-            books.Add(new Book ("Derivadas", Subjects.Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
-            books.Add(new Book ("Quimica y Farmacia 1", Subjects.Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
-            books.Add(new Book ("Tablas quimicas", Subjects.Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
-            books.Add(new Book ("Don Quijote", Subjects.Subject.Literature, 250, new DateTime(2022, 01, 05), true));
-            books.Add(new Book ("Fundamentos Quimica", Subjects.Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
-            books.Add(new Book ("Subterra", Subjects.Subject.Literature, 220, new DateTime(2020, 02, 20), false));
-            books.Add(new Book ("Baldor", Subjects.Subject.Maths, 170, new DateTime(2019, 09, 25), true));
-            books.Add(new Book ("La quimica del amor", Subjects.Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
-            books.Add(new Book ("Matematicas for dummies", Subjects.Subject.Maths, 200, new DateTime(2018, 02, 14), false));
-            books.Add(new Book ("Nomenclatura de las sustancias químicas", Subjects.Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
+            books.Add(new Book ("Derivadas", Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
+            books.Add(new Book ("Quimica y Farmacia 1", Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
+            books.Add(new Book ("Tablas quimicas", Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
+            books.Add(new Book ("Don Quijote", Subject.Literature, 250, new DateTime(2022, 01, 05), true));
+            books.Add(new Book ("Fundamentos Quimica", Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
+            books.Add(new Book ("Subterra", Subject.Literature, 220, new DateTime(2020, 02, 20), false));
+            books.Add(new Book ("Baldor", Subject.Maths, 170, new DateTime(2019, 09, 25), true));
+            books.Add(new Book ("La quimica del amor", Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
+            books.Add(new Book ("Matematicas for dummies", Subject.Maths, 200, new DateTime(2018, 02, 14), false));
+            books.Add(new Book ("Nomenclatura de las sustancias químicas", Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
 
             return books;
         }
@@ -34,7 +34,7 @@ namespace Libros
         public static void GetMaths(List<Book> books)
         {
             Console.WriteLine("Maths books: ");
-            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Subject.Maths))
+            foreach (Book book in books.Where(book => book.GetSubjects == Subject.Maths))
             {
                 book.Show();
             }
@@ -44,7 +44,7 @@ namespace Libros
         public static void GetChemistry(List<Book> books)
         {
             Console.WriteLine("Chemistry books that have more than 100 pages: ");
-            foreach (Book book in books.Where(book => book.GetSubjects == Subjects.Subject.Chemistry && book.GetPages > 100))
+            foreach (Book book in books.Where(book => book.GetSubjects == Subject.Chemistry && book.GetPages > 100))
             {
 
                 book.Show();
@@ -88,10 +88,10 @@ namespace Libros
         //Muestra cuántos libros hay por cada especialidad, considerando que en un futuro podrían agregar especialidades(podrían agregar items al enum) 
         public static void CountBooksBySpecialty(List<Book> books)
         {
-            var subjectTypes = Enum.GetValues(typeof(Subjects));
+            var subjectTypes = Enum.GetValues(typeof(Subject));
             Console.WriteLine("Number of books by specialty: ");
 
-            foreach (Subjects.Subject subject in subjectTypes)
+            foreach (Subject subject in subjectTypes)
             {
                 int count = books.Count(b => b.GetSubjects == subject);
                 Console.WriteLine($"{subject}\t{count}");
@@ -177,8 +177,8 @@ namespace Libros
                 "5.- The total number of pages among all the books \n" +
                 "6.- Shows all the books ordered from the one with the most pages to the one with the fewest pages \n" +
                 "7.- Shows how many books there are for each specialty \n" +
-                "8.- Shows list of names of books published this month" +
-                "9.- List of names of all books, ordered from A to Z"+
+                "8.- Shows list of names of books published this month \n" +
+                "9.- List of names of all books, ordered from A to Z \n"+
                 "0.- Exit");
 
             int option = Convert.ToInt32(Console.ReadLine());
