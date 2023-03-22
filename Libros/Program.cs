@@ -7,6 +7,7 @@ namespace Libros
 {
     internal class Program
     {
+        //lista global
         static List<Book> books;
 
         public class Book
@@ -17,7 +18,7 @@ namespace Libros
             public DateTime Date { get; set; }
             public bool Available { get; set; }
 
-
+            //Constructor
             public Book(string name, Subjects subject, int pages, DateTime date, bool available)
             {
                 Name = name;
@@ -27,12 +28,17 @@ namespace Libros
                 Available = available;
             }
 
+            //Imprimir generica
             public void Show()
             {
                 Console.WriteLine($"{Name}\t{Subject}\t{Pages}\t{Date.ToString("yyyy-MM-dd")}\t{Available}");
             }
         }
+
+        // Enum type para las asignaturas/especialidad
         public enum Subjects { Maths, Literature, Chemistry };
+
+        //populate
         public static List<Book> CreateBooks()
         {
 
@@ -50,19 +56,20 @@ namespace Libros
             return books;
         }
 
-
+        //Muestra los libros de matematicas
         public static void GetMaths(List<Book> books)
         {
-            Console.WriteLine("Los libros de matematicas");
+            Console.WriteLine("Maths books: ");
             foreach (Book book in books.Where(book => book.Subject == Subjects.Maths))
             {
                 Console.WriteLine($"{book.Name}");
             }
         }
 
+        //Muestra los libros de quimica que tiene mas de 100 paginas
         public static void GetChemistry(List<Book> books)
         {
-            Console.WriteLine("Los libros de quimica que tiene mas 100 paginas");
+            Console.WriteLine("Chemistry books that have more than 100 pages: ");
             foreach (Book book in books.Where(book => book.Subject == Subjects.Chemistry && book.Pages > 100))
             {
 
@@ -110,6 +117,8 @@ namespace Libros
 
             return match;
         }
+
+        //Muestra la cantidad de paginas en total entre todos los libros
         public static void GetNumberPages(List<Book> books)
         {
             var count = 0;
@@ -137,7 +146,7 @@ namespace Libros
         public static void CountBooksBySpecialty(List<Book> books)
         {
             var subjectTypes = Enum.GetValues(typeof(Subjects));
-            Console.WriteLine("Cantidad de libros por especialidad: ");
+            Console.WriteLine("Number of books by specialty: ");
 
             foreach (Subjects subject in subjectTypes)
             {
@@ -160,7 +169,7 @@ namespace Libros
 
             //OrderBooksPages(books);
 
-            CountBooksBySpecialty(books);
+            //CountBooksBySpecialty(books);
 
             //foreach (Book book in books)
             //{
@@ -169,11 +178,11 @@ namespace Libros
             //}
 
 
-            //Console.WriteLine("El libro mas viejo: ");
+            //Console.WriteLine("The oldest book: ");
             //olderBook.Show();
 
 
-            //Console.WriteLine("El libro con mayor cantidad de paginas: ");
+            //Console.WriteLine("The book with the most pages: ");
             //topBook.Show();
 
             //GetMayorPages(books);
