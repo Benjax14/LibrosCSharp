@@ -10,24 +10,24 @@ namespace Libros
     {
 
         //populate
-        public static List<Book> CreateBooks()
-        {
+        //public static List<Book> CreateBooks()
+        //{
 
-            List<Book> books = new List<Book>();
+        //    List<Book> books = new List<Book>();
 
-            books.Add(new Book ("Derivadas", Subject.Maths, 200, new DateTime(2022, 07, 15), true ));
-            books.Add(new Book ("Quimica y Farmacia 1", Subject.Chemistry, 80 ,new DateTime(2012, 05, 15),false ));
-            books.Add(new Book ("Tablas quimicas", Subject.Chemistry, 300, new DateTime(2022, 03, 25), true));
-            books.Add(new Book ("Don Quijote", Subject.Literature, 250, new DateTime(2022, 01, 05), true));
-            books.Add(new Book ("Fundamentos Quimica", Subject.Chemistry, 180, new DateTime(2021, 03, 11), true));
-            books.Add(new Book ("Subterra", Subject.Literature, 220, new DateTime(2020, 02, 20), false));
-            books.Add(new Book ("Baldor", Subject.Maths, 170, new DateTime(2019, 09, 25), true));
-            books.Add(new Book ("La quimica del amor", Subject.Chemistry, 280, new DateTime(2023, 01, 29), false));
-            books.Add(new Book ("Matematicas for dummies", Subject.Maths, 200, new DateTime(2018, 02, 14), false));
-            books.Add(new Book ("Nomenclatura de las sustancias químicas", Subject.Chemistry, 190, new DateTime(2014, 05, 25), true));
+        //    books.Add(new Book("Derivadas", Subject.Maths, 200, new DateTime(2022, 07, 15), true, new Person("Juan Perez", "12.345.678-9"), new Enterprise("Editorial XYZ", "12.345.678-9")));
+        //    books.Add(new Book("Quimica y Farmacia 1", Subject.Chemistry, 80, new DateTime(2012, 05, 15), false, new Person("Maria Gonzalez", "18.456.789-0"), new Enterprise("Editorial ABC", "98.765.432-1")));
+        //    books.Add(new Book("Tablas quimicas", Subject.Chemistry, 300, new DateTime(2022, 03, 25), true, new Person("Pedro Ramirez", "16.345.678-1"), new Enterprise("Editorial XYZ", "12.345.678-9")));
+        //    books.Add(new Book("Don Quijote", Subject.Literature, 250, new DateTime(2022, 01, 05), true, new Person("Miguel de Cervantes", ""), new Enterprise("Editorial PQR", "76.543.210-8")));
+        //    books.Add(new Book("Fundamentos Quimica", Subject.Chemistry, 180, new DateTime(2021, 03, 11), true, new Person("Alberto Galindo", ""), new Enterprise("Editorial ABC", "98.765.432-1")));
+        //    books.Add(new Book("Subterra", Subject.Literature, 220, new DateTime(2020, 02, 20), false, new Person("Baldomero Lillo", ""), new Enterprise("Editorial XYZ", "12.345.678-9")));
+        //    books.Add(new Book("Baldor", Subject.Maths, 170, new DateTime(2019, 09, 25), true, new Person("Aurelio Baldor", ""), new Enterprise("Editorial PQR", "76.543.210-8")));
+        //    books.Add(new Book("La quimica del amor", Subject.Chemistry, 280, new DateTime(2023, 01, 29), false, new Person("Rafael Yuste", "12.345.678-9"), new Enterprise("Editorial ABC", "98.765.432-1")));
+        //    books.Add(new Book("Matematicas for dummies", Subject.Maths, 200, new DateTime(2018, 02, 14), false, new Person("Mary Jane Sterling", ""), new Enterprise("Editorial XYZ", "12.345.678-9")));
+        //    books.Add(new Book("Nomenclatura de las sustancias químicas", Subject.Chemistry, 190, new DateTime(2014, 05, 25), true, new Person("Juan Manuel Sánchez", "12.345.678-9"), new Enterprise("Editorial PQR", "76.543.210-8")));
 
-            return books;
-        }
+        //    return books;
+        //}
 
         //Muestra los libros de matematicas
         public static void GetMaths(List<Book> books)
@@ -58,12 +58,6 @@ namespace Libros
             var count = 0;
 
             count = books.Sum(book => book.Pages);
-
-            //foreach(Book book in Books)
-            //{
-            //    count += book.Pages;
-
-            //}
 
             Console.WriteLine("Total pages:");
             Console.WriteLine($"{count}");
@@ -161,7 +155,12 @@ namespace Libros
 
             var books = new List<Book>();
 
-            books = CreateBooks();
+            var dataPerson = new Data();
+
+            dataPerson.Test("Pepe", "20.551.932-3");
+
+
+            //books = CreateBooks();
 
             Console.WriteLine("------WELCOME-----");
             Console.WriteLine("Choose an option: \n" +
