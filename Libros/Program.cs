@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Libros
 {
@@ -31,7 +32,7 @@ namespace Libros
                 "7.- Shows how many books there are for each specialty \n" +
                 "8.- Shows list of names of books published this month \n" +
                 "9.- List of names of all books, ordered from A to Z \n"+
-                "0.- Exit");
+                "0.- Next");
 
             int option = Convert.ToInt32(Console.ReadLine());
 
@@ -95,6 +96,35 @@ namespace Libros
                     }
                     break;
                 case 0:
+                    Console.Clear();
+                    break;
+            }
+
+            Console.WriteLine("Choose an option: \n" +
+               "1.- List of tuples showing the number of books by author\n" +
+               "2.- List of tuples showing the number of books by author name\n" +
+               "3.- Search the number of books by author selected by keyboard\n"+
+               "4.- Search the name of the books by author");
+
+            option = Convert.ToInt32(Console.ReadLine());
+            
+            switch (option)
+            {
+                case 1:
+                    Exercises2.GetBooksCountPerAuthor1(data.Books);
+                    break;
+                case 2:
+                    Exercises2.GetBooksCountPerAuthor2(data.Books);
+                    break;
+                case 3:
+                    Console.WriteLine("Insert author:");
+                    string key1 = Console.ReadLine();
+                    Exercises2.GetBooksCountPerAuthor3(data.Books, key1);
+                    break;
+                case 4:
+                    Console.WriteLine("Insert author:");
+                    string key2 = Console.ReadLine();
+                    Exercises2.GetBooksIndexedByAuthor(data.Books, key2);
                     break;
             }
 

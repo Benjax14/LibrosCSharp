@@ -54,7 +54,7 @@ namespace Libros
         {
             Books.Add(new Book("Derivadas", Subject.Maths, 200, new DateTime(2022, 07, 15), true, Persons[0], Enterprises[0]));
             Books.Add(new Book("Quimica y Farmacia 1", Subject.Chemistry, 80, new DateTime(2012, 05, 15), false, Persons[8], Enterprises[1]));
-            Books.Add(new Book("Tablas quimicas", Subject.Chemistry, 300, new DateTime(2022, 03, 25), true, Persons[1], Enterprises[2]));
+            Books.Add(new Book("Tablas quimicas", Subject.Chemistry, 300, new DateTime(2022, 03, 25), true, Persons[3], Enterprises[2]));
             Books.Add(new Book("Don Quijote", Subject.Literature, 250, new DateTime(2022, 01, 05), true, Persons[3], Enterprises[3]));
             Books.Add(new Book("Fundamentos Quimica", Subject.Chemistry, 180, new DateTime(2021, 03, 11), true, Persons[2], Enterprises[4]));
             Books.Add(new Book("Subterra", Subject.Literature, 220, new DateTime(2020, 02, 20), false, Persons[4], Enterprises[5]));
