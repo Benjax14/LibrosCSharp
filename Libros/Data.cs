@@ -86,7 +86,7 @@ namespace Libros
 
             foreach (var book in Books) {
 
-                Console.WriteLine($"{book.Name}\t{book.Subject}\t{book.Pages}\t{book.Date.ToString("yyyy-MM-dd")}\t{book.Available}\t{book.Author.Name}\t{book.Editorial.Name}");
+                Console.WriteLine($"{book.NameBook}\t{book.TypeBook}\t{book.PagesCount}\t{book.PublicationDate.ToString("yyyy-MM-dd")}\t{book.OnlineAvailable}\t{book.AuthorBook.Name}\t{book.Editorial.Name}");
 
 
             }

@@ -8,23 +8,23 @@ namespace Libros
 {
     public class Book
     {
-        public string Name { get; set; } //Field
-        public Subject Subject { get; set; }
-        public int Pages { get; set; }
-        public DateTime Date { get; set; }
-        public bool Available { get; set; }
-        public Person Author { get; set; }
+        public string NameBook { get; set; } //Field
+        public Subject TypeBook { get; set; }
+        public int PagesCount { get; set; }
+        public DateTime PublicationDate { get; set; }
+        public bool OnlineAvailable { get; set; }
+        public Person AuthorBook { get; set; }
         public Enterprise Editorial { get; set; }
 
         // Constructor
         public Book(string name, Subject subject, int pages, DateTime date, bool available, Person author, Enterprise editorial)
         {
-            Name = name;
-            Subject = subject;
-            Pages = pages;
-            Date = date;
-            Available = available;
-            Author = author;
+            NameBook = name;
+            TypeBook = subject;
+            PagesCount = pages;
+            PublicationDate = date;
+            OnlineAvailable = available;
+            AuthorBook = author;
             Editorial = editorial;
         }
 
@@ -32,7 +32,7 @@ namespace Libros
         //Imprimir generica
         public void Show()
         {
-            Console.WriteLine($"{Name}\t{Subject}\t{Pages}\t{Date.ToString("yyyy-MM-dd")}\t{Available}\t{Author.Name}\t{Editorial.Name}");
+            Console.WriteLine($"{NameBook}\t{TypeBook}\t{PagesCount}\t{PublicationDate.ToString("yyyy-MM-dd")}\t{OnlineAvailable}\t{AuthorBook.Name}\t{Editorial.Name}");
         }
 
     }

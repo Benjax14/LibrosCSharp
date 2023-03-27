@@ -9,15 +9,12 @@ namespace Libros
     public class Exercises2
     {
 
-        public static void GetBooksCountPerAuthor1(List<Book> books)
+        public static List<(string authorName, int bookCount)> GetBooksCountPerAuthor1(List<Book> books)
         {
 
-            var list = books.GroupBy(x => x.Author);
+            var list = books.GroupBy(x => x.Author.Name).Select(o => (authorName: o.Key, bookCount: o.Count())).ToList();
 
-            foreach (var item in list)
-            {
-                Console.WriteLine($"{item.Key.Name}: {item.Count()}");
-            }
+            return list;   
         }
 
         public static void GetBooksCountPerAuthor2(List<Book> books)
@@ -32,37 +29,21 @@ namespace Libros
 
         }
 
-        public static void GetBooksCountPerAuthor3(List<Book> books, string key)
+        public static Dictionary<string, int> GetBooksCountPerAuthor3(List<Book> books, string key)
         {
 
-            var authorBooks = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name);
+            var list = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name).ToDictionary(x => x.Key, x => x.Count());
 
-            if (authorBooks.Count() > 0) { 
+            return list;
 
-                foreach (var item in authorBooks)
-                {
-                    Console.WriteLine($"{item.Key}: {item.Count()}");
-                }
-            }
-            else { Console.WriteLine("No result"); }
         }
 
-        public static void GetBooksIndexedByAuthor(List<Book> books, string key)
+        public static Dictionary<string, List<Book>> GetBooksIndexedByAuthor(List<Book> books, string key)
         {
-            var authorBooks = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name);
+            var bookNames = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name).ToDictionary(x => x.Key, x => x.ToList());
 
-            Console.WriteLine("List of books: ");
+            return bookNames;
 
-            if(authorBooks.Count() > 0) { 
-
-                foreach(var item in authorBooks)
-                {
-                    foreach(var book in item)
-                    {
-                        Console.WriteLine(book.Name);
-                    }
-                }
-            }else { Console.WriteLine("No result"); }
         }
 
 

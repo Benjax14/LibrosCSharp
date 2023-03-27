@@ -111,20 +111,43 @@ namespace Libros
             switch (option)
             {
                 case 1:
-                    Exercises2.GetBooksCountPerAuthor1(data.Books);
+                    var prueba = Exercises2.GetBooksCountPerAuthor1(data.Books);
+                    
+                    foreach ((string, int) bookName in prueba) {  Console.WriteLine(bookName); }
+
                     break;
                 case 2:
                     Exercises2.GetBooksCountPerAuthor2(data.Books);
                     break;
+
                 case 3:
                     Console.WriteLine("Insert author:");
                     string key1 = Console.ReadLine();
-                    Exercises2.GetBooksCountPerAuthor3(data.Books, key1);
+                    var prueba3 = Exercises2.GetBooksCountPerAuthor3(data.Books, key1);
+
+                    foreach (var item in prueba3)
+                    {
+                        Console.WriteLine($"{item}");
+                    }
+
                     break;
                 case 4:
+
                     Console.WriteLine("Insert author:");
+
                     string key2 = Console.ReadLine();
-                    Exercises2.GetBooksIndexedByAuthor(data.Books, key2);
+                    var prueba4 = Exercises2.GetBooksIndexedByAuthor(data.Books, key2);
+                    Console.Clear();
+
+
+                    foreach(var item in prueba4) {  
+                        Console.WriteLine($"{item.Key}:");
+                        foreach(var bookName in item.Value)
+                        {
+                            Console.WriteLine($"  {bookName.NameBook}");
+                        }
+                    }
+
                     break;
             }
 
