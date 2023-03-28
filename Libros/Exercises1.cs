@@ -13,7 +13,7 @@ namespace Libros
     public static void GetMaths(List<Book> books)
     {
         Console.WriteLine("Maths books: ");
-        foreach (Book book in books.Where(book => book.Subject == Subject.Maths))
+        foreach (Book book in books.Where(book => book.TypeBook == Subject.Maths))
         {
             book.Show();
         }
@@ -23,7 +23,7 @@ namespace Libros
     public static void GetChemistry(List<Book> books)
     {
         Console.WriteLine("Chemistry books that have more than 100 pages: ");
-        foreach (Book book in books.Where(book => book.Subject == Subject.Chemistry && book.Pages > 100))
+        foreach (Book book in books.Where(book => book.TypeBook == Subject.Chemistry && book.PagesCount > 100))
         {
 
             book.Show();
@@ -37,7 +37,7 @@ namespace Libros
     {
         var count = 0;
 
-        count = books.Sum(book => book.Pages);
+        count = books.Sum(book => book.PagesCount);
 
         Console.WriteLine("Total pages:");
         Console.WriteLine($"{count}");
@@ -48,7 +48,7 @@ namespace Libros
 
     public static void OrderBooksPages(List<Book> books)
     {
-        var list = books.OrderByDescending(book => book.Pages);
+        var list = books.OrderByDescending(book => book.PagesCount);
 
         Console.WriteLine("Order by pages: ");
 
@@ -66,7 +66,7 @@ namespace Libros
 
         foreach (Subject subject in subjectTypes)
         {
-            int count = books.Count(b => b.Subject == subject);
+            int count = books.Count(b => b.TypeBook == subject);
             Console.WriteLine($"{subject}\t{count}");
         }
 
@@ -76,7 +76,7 @@ namespace Libros
     public static void CountBooksBySpecialty2(List<Book> books)
     {
 
-        var list = books.GroupBy(book => book.Subject);
+        var list = books.GroupBy(book => book.TypeBook);
         Console.WriteLine("Number of books by specialty: ");
 
         foreach (var group in list)
@@ -90,7 +90,7 @@ namespace Libros
     public static Book GetMaxPagesBook(List<Book> books)
     {
 
-        var query = books.OrderByDescending(book => book.Pages).FirstOrDefault();
+        var query = books.OrderByDescending(book => book.PagesCount).FirstOrDefault();
 
 
         return query;
@@ -100,7 +100,7 @@ namespace Libros
     //Muestra el libro más antiguo con la fecha de publicación más antigua
     public static Book GetOlderBook(List<Book> books)
     {
-        var query = books.OrderBy(book => book.Date).FirstOrDefault();
+        var query = books.OrderBy(book => book.PublicationDate).FirstOrDefault();
 
         return query;
     }
@@ -110,7 +110,7 @@ namespace Libros
 
         var localDate = DateTime.Now;
 
-        var list = books.Where(book => book.Date.Month == localDate.Month);
+        var list = books.Where(book => book.PublicationDate.Month == localDate.Month);
 
         Console.WriteLine("Order by actual month: ");
 
@@ -123,7 +123,7 @@ namespace Libros
     public static List<string> GetSortedBookNames(List<Book> books)
     {
 
-        List<string> names = books.Select(o => o.Name).ToList();
+        List<string> names = books.Select(o => o.NameBook).ToList();
 
         names.Sort();
 

@@ -9,38 +9,37 @@ namespace Libros
     public class Exercises2
     {
 
-        public static List<(string authorName, int bookCount)> GetBooksCountPerAuthor1(List<Book> books)
+        public static Tuple<(string authorName, int bookCount)[]> GetBooksCountPerAuthor1(List<Book> books)
         {
+            var result = books.GroupBy(b => b.AuthorBook.Name).Select(g => (AuthorName: g.Key, BookCount: g.Count())).ToArray();
 
-            var list = books.GroupBy(x => x.Author.Name).Select(o => (authorName: o.Key, bookCount: o.Count())).ToList();
-
-            return list;   
-        }
-
-        public static void GetBooksCountPerAuthor2(List<Book> books)
-        {
-
-            var list = books.GroupBy(x => x.Author);
-
-            foreach (var item in list)
-            {
-                Console.WriteLine($"{item.Key.Name}, {item.Key.Rut}: {item.Count()}");
-            }
+            return Tuple.Create(result);
 
         }
 
-        public static Dictionary<string, int> GetBooksCountPerAuthor3(List<Book> books, string key)
+
+
+
+        public static Tuple<(string author, int bookCount)[]> GetBooksCountPerAuthor2(List<Book> books)
         {
 
-            var list = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name).ToDictionary(x => x.Key, x => x.Count());
+            var result = books.GroupBy(b => b.AuthorBook.Name).Select(o =>  (author: o.Key, BookCount: o.Count())).ToArray();
+            return Tuple.Create(result);
+
+        }
+
+        public static Dictionary<string, int> GetBooksCountPerAuthor3(List<Book> books)
+        {
+
+            var list = books.GroupBy(x => x.AuthorBook.Name).ToDictionary(x => x.Key, x => x.Count());
 
             return list;
 
         }
 
-        public static Dictionary<string, List<Book>> GetBooksIndexedByAuthor(List<Book> books, string key)
+        public static Dictionary<string, List<Book>> GetBooksIndexedByAuthor(List<Book> books)
         {
-            var bookNames = books.Where(x => x.Author.Name.Equals(key)).GroupBy(x => x.Author.Name).ToDictionary(x => x.Key, x => x.ToList());
+            var bookNames = books.GroupBy(x => x.AuthorBook.Name).ToDictionary(x => x.Key, x => x.ToList());
 
             return bookNames;
 

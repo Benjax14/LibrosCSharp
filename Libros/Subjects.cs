@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace Libros
 {
-        public enum Subject { Maths, Literature, Chemistry, Physics };
+        public enum Subject 
+        {
+            Maths,
+            Literature,
+            Chemistry,
+            Physics
+        };
 }
