@@ -114,9 +114,9 @@ namespace Libros
 
                     var prueba = Exercises2.GetBooksCountPerAuthor1(data.Books);
 
-                    foreach (var tuple in prueba.Item1)
+                    foreach (var tuple in prueba)
                     {
-                        Console.WriteLine($"{tuple.authorName} - {tuple.bookCount}");
+                        Console.WriteLine($"{tuple.Item1}");
                     }
 
                     break;
@@ -124,9 +124,9 @@ namespace Libros
 
                     var prueba2 = Exercises2.GetBooksCountPerAuthor2(data.Books);
 
-                    foreach (var tuple in prueba2.Item1)
+                    foreach (var tuple in prueba2)
                     {
-                        Console.WriteLine($"{tuple.author} - {tuple.bookCount}");
+                        Console.WriteLine($"{tuple.Item1.Item1.Name}: {tuple.Item1.Item2}");
                     }
 
                     break;
