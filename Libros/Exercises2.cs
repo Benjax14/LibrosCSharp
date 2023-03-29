@@ -66,15 +66,15 @@ namespace Libros
         public static List<Book> GetBooksByPage(List<Book> books, int pageIndex, int pageSize)
         {
 
-            var totalPages = books.Skip(pageIndex);
+            var startIndex = pageIndex * pageSize;
 
-            var result = totalPages.Take(pageSize).ToList();
-
-            if(pageSize < pageIndex)
+            if (startIndex >= books.Count)
             {
-                Console.WriteLine("No result");
+                Console.WriteLine("Empty");
+                return new List<Book>();
             }
 
+            var result = books.Skip(startIndex).Take(pageSize).ToList();
             return result;
 
         }
