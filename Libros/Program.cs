@@ -104,7 +104,8 @@ namespace Libros
                "1.- List of tuples showing the number of books by author\n" +
                "2.- List of tuples showing the number of books by author name\n" +
                "3.- Search the number of books by author selected by keyboard\n"+
-               "4.- Search the name of the books by author");
+               "4.- Search the name of the books by author\n"+
+               "5.- Load only 1 page of records with pagination");
 
             option = Convert.ToInt32(Console.ReadLine());
             
@@ -112,9 +113,9 @@ namespace Libros
             {
                 case 1:
 
-                    var prueba = Exercises2.GetBooksCountPerAuthor1(data.Books);
+                    var test = Exercises2.GetBooksCountPerAuthor1(data.Books);
 
-                    foreach (var tuple in prueba)
+                    foreach (var tuple in test)
                     {
                         Console.WriteLine($"{tuple.Item1}");
                     }
@@ -122,9 +123,9 @@ namespace Libros
                     break;
                 case 2:
 
-                    var prueba2 = Exercises2.GetBooksCountPerAuthor2(data.Books);
+                    var test2 = Exercises2.GetBooksCountPerAuthor2(data.Books);
 
-                    foreach (var tuple in prueba2)
+                    foreach (var tuple in test2)
                     {
                         Console.WriteLine($"{tuple.Item1.Item1.Name}: {tuple.Item1.Item2}");
                     }
@@ -133,9 +134,9 @@ namespace Libros
 
                 case 3:
 
-                    var prueba3 = Exercises2.GetBooksCountPerAuthor3(data.Books);
+                    var test3 = Exercises2.GetBooksCountPerAuthor3(data.Books);
 
-                    foreach (var item in prueba3)
+                    foreach (var item in test3)
                     {
                         Console.WriteLine($"{item}");
                     }
@@ -143,17 +144,36 @@ namespace Libros
                     break;
                 case 4:
 
-                    var prueba4 = Exercises2.GetBooksIndexedByAuthor(data.Books);
+                    var test4 = Exercises2.GetBooksIndexedByAuthor(data.Books);
                     Console.Clear();
 
 
-                    foreach(var item in prueba4) {  
+                    foreach(var item in test4) {  
                         Console.WriteLine($"{item.Key}:");
                         foreach(var bookName in item.Value)
                         {
                             Console.WriteLine($"  {bookName.NameBook}");
                         }
                     }
+
+                    break;
+                case 5:
+
+                    Console.WriteLine("Select the page:\n" + "1.\n" + "2.\n");
+                    var key = Convert.ToInt32(Console.ReadLine());
+
+                    var test5 = Exercises2.LoadPageByPagination(data.Books, key);
+
+                    if( test5 != null )
+                    {
+                        foreach (var item in test5)
+                        {
+                            Console.WriteLine($"{item.NameBook} - {item.AuthorBook.Name}");
+                        }
+
+                    }else { Console.WriteLine("ERROR"); }
+
+
 
                     break;
             }

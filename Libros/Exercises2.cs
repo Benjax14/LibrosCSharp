@@ -40,6 +40,30 @@ namespace Libros
 
         }
 
+        public static List<Book> LoadPageByPagination(List<Book> books, int key)
+        {
+
+            List<Book> result = new List<Book>();
+
+            if (key == 1)
+            {
+                result = books.Take(5).ToList();
+
+
+            }
+            else if (key == 2)
+            {
+                result = books.Skip(5).Take(5).ToList();
+
+            }
+            else
+            {
+                Console.WriteLine("ERROR");
+                return result;
+            }
+
+            return result;
+        }
 
     }
 }
