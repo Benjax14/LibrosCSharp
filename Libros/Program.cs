@@ -105,10 +105,12 @@ namespace Libros
                "2.- List of tuples showing the number of books by author name\n" +
                "3.- Search the number of books by author selected by keyboard\n"+
                "4.- Search the name of the books by author\n"+
-               "5.- Load only 1 page of records with pagination");
+               "5.- Load only 1 page of records with pagination\n"+
+               "6.- Load books by index and size\n"+
+               "7.- The total number of pages that the books have");
 
             option = Convert.ToInt32(Console.ReadLine());
-            
+
             switch (option)
             {
                 case 1:
@@ -148,9 +150,9 @@ namespace Libros
                     Console.Clear();
 
 
-                    foreach(var item in test4) {  
+                    foreach (var item in test4) {
                         Console.WriteLine($"{item.Key}:");
-                        foreach(var bookName in item.Value)
+                        foreach (var bookName in item.Value)
                         {
                             Console.WriteLine($"  {bookName.NameBook}");
                         }
@@ -164,17 +166,43 @@ namespace Libros
 
                     var test5 = Exercises2.LoadPageByPagination(data.Books, key);
 
-                    if( test5 != null )
+                    foreach (var item in test5)
                     {
-                        foreach (var item in test5)
+                        Console.WriteLine($"{item.NameBook} - {item.AuthorBook.Name}");
+                    }
+
+
+
+
+                    break;
+
+                case 6:
+
+                    Console.WriteLine("Insert a page index:");
+                    var pageIndex = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Insert a page size:");
+                    var pageSize = Convert.ToInt32(Console.ReadLine());
+
+                    var test6 = Exercises2.GetBooksByPage(data.Books, pageIndex, pageSize);
+
+                    if(test6 != null) {
+                        foreach (var item in test6)
                         {
                             Console.WriteLine($"{item.NameBook} - {item.AuthorBook.Name}");
                         }
+                    }
+                    else { Console.WriteLine("No result"); }
+                    break;
 
-                    }else { Console.WriteLine("ERROR"); }
+                case 7:
 
+                    Console.WriteLine("Insert a page size:");
 
+                    var pageSize2 = Convert.ToInt32(Console.ReadLine());
+                    var test7 = Exercises2.GetTotalPages(data.Books, pageSize2);
 
+                    Console.WriteLine($"The number of pages is: {test7}");
                     break;
             }
 

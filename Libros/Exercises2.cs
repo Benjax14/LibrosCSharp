@@ -18,9 +18,7 @@ namespace Libros
 
         public static List<Tuple<(Person, int)>> GetBooksCountPerAuthor2(List<Book> books)
         {
-            return books.GroupBy(o => o.AuthorBook)
-                        .Select(o => Tuple.Create((o.Key, o.Count())))
-                        .ToList();
+            return books.GroupBy(o => o.AuthorBook).Select(o => Tuple.Create((o.Key, o.Count()))).ToList();
         }
 
         public static Dictionary<string, int> GetBooksCountPerAuthor3(List<Book> books)
@@ -63,6 +61,32 @@ namespace Libros
             }
 
             return result;
+        }
+
+        public static List<Book> GetBooksByPage(List<Book> books, int pageIndex, int pageSize)
+        {
+
+            var totalPages = books.Skip(pageIndex);
+
+            var result = totalPages.Take(pageSize).ToList();
+
+            if(pageSize < pageIndex)
+            {
+                Console.WriteLine("No result");
+            }
+
+            return result;
+
+        }
+
+        public static int GetTotalPages(List<Book> books, int pageSize)
+        {
+
+            var total = books.Count();
+
+            var totalPages = (int)Math.Ceiling((double)total / pageSize);
+
+            return totalPages;
         }
 
     }
